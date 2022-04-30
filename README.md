@@ -20,7 +20,7 @@ If you wish you could set your ~/.bashrc to source the script at boot.
 
 ```
 echo "if [ -f <full_path_to_script>/csharp.sh ]; then \
-	. <full_path_to_script>/charp.sh \
+	. <full_path_to_script>/csharp.sh \
 fi" >> ~/.bashrc
 ```
 
