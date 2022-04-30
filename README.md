@@ -1,10 +1,9 @@
 #	.NET Framework Helper for vscode in a Linux Environment
 
-I have been using a Linode Virtual Machone (Debian 10) for remote work with a ssh connection on  vscode.
-Development for most languages are quite easy and convinient except for C# (.Net Framework). I found myself
+I have been using a <a href="https://www.linode.com/">Linode</a> Virtual Machone (Debian 10) for remote work with a ssh connection on <a href="https://code.visualstudio.com/Download">vscode</a>. Development for most languages is quite easy and convinient except for C# (.Net Framework). I found myself
 having to run several commands just to set the environment to start coding. That's the birth of this script.
 
-This script simple makes the creation of a <b>console app</b> and a <b>classlib</b> easier so you can start coding faster.
+This script simply makes the creation of a <b>console app</b> and a <b>classlib</b> easier so you can start coding faster.
  The script assumes the dotnet binary is located "/usr/bin/dotnet". It will then check all the different 
 versions you have and let your choice which one to use. 
 
@@ -22,7 +21,7 @@ If you wish you could set your ~/.bashrc to source the script at boot.
 ```
 echo "if [ -f <full_path_to_script>/csharp.sh ]; then \
 	. <full_path_to_script>/charp.sh \
-fi"
+fi" >> ~/.bashrc
 ```
 
 #	USAGE
