@@ -59,6 +59,6 @@ cshelp classlib MyClass MyConsoleApp
 That's it!
 
 
-#	Colaboration
+#	Collab
 
 Any feedback is appreciated and if you make changes please share. 
