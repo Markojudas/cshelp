@@ -24,7 +24,7 @@ echo "if [ -f <full_path_to_script>/csharp.sh ]; then \
 fi" >> ~/.bashrc
 ```
 
-#	USAGE
+#	Usage
 
 The structure after running the commands:
 
@@ -36,10 +36,6 @@ and start coding!
 
 If you need to create a class library, then run the second command (<b>must be ran while in the same directory as the solution file</b>).
 A classlib will be created (with a stock file called Class1.cs) and it will be added to the project (console app).
-
-The structure will look like this:
-
-<img src="./static/structure.png" alt="App Structure"/>
 
 <h6> I have named the solution App. A directory named App (same as the solution) was created. Inside the directory the console app was created
 named MyConsoleApp. I have also named the Class Library MyClass inside the App directory.</h6>
