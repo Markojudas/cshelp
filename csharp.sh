@@ -45,7 +45,8 @@ console [solution_name] [console app name]		Creates new directory, solution, new
 classlib [classlib name] [existing console app name]	Creates a class library inside the same directory as the solution and adds its reference on the console project
 
 Created by:
- Markojudas"
+ Markojudas : https://github.com/Markojudas/cshelp"
+
 }
 
 function add_to_sln(){
