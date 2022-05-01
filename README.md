@@ -30,7 +30,7 @@ The structure after running the commands:
 
 <img src="./static/structure.png" alt="App Structure"/>
 
-The first command to use will create a new directory (named after the solution) and go into this directory. It will then create the solution and a new console app.
+The first command to use (ran in your project folder) will create a new directory (named after the solution) and go into this directory. It will then create the solution and a new console app.
 It will then  build the console app and add it to the solution. At this point you can already begin coding! Open the newly created directory (with the solution name) on vscode
 and start coding!
 
