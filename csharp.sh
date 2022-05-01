@@ -1,42 +1,44 @@
 #!/bin/bash
 
-
-function pick_sdk(){
+function cshelp(){
 	
-	if ! [[ -f /usr/bin/dotnet ]]; then
-		echo ".NET Framework not found"
-		return 1
-	fi
-	IFS=$'\n'
-	SDKS=( $(dotnet --list-sdks | grep -o ^[0-9].[0-9]) )
-
-	i=1
-
-	echo "Found the following .NET Frameworks: "
-	echo " "
-	for sdk in "${SDKS[@]}"
-	do
-		echo $i: net$sdk
-		let i++
-	done
-	echo " "
+	function pick_sdk(){
 	
-	if [[ $i -eq 2 ]]; then
-		read -p "Select the SDK(1): " choice
-	else
-		read -p "Select the SDK(1-$((i-1))): " choice
-	fi
+		if ! [[ -f /usr/bin/dotnet ]]; then
+			echo ".NET Framework not found"
+			return 1
+		fi
+		IFS=$'\n'
+		SDKS=( $(dotnet --list-sdks | grep -o ^[0-9].[0-9]) )
 
-	if ! [[ $choice =~ ^[0-9]+$ ]] || [ $choice -gt $((i-1)) ]; then
-		echo "wrong input: Please select from the choices. Try again"
-		return 1
-	fi
+		i=1
+
+		echo "Found the following .NET Frameworks: "
+		echo " "
+		for sdk in "${SDKS[@]}"
+		do
+			echo $i: net$sdk
+			let i++
+		done
+		echo " "
 	
-	NETVERSION="net"${SDKS[choice-1]}
-}
+		if [[ $i -eq 2 ]]; then
+			read -p "Select the SDK(1): " choice
+		else
+			read -p "Select the SDK(1-$((i-1))): " choice
+		fi
 
-function direction(){
-echo ".NET CLI helper to set the development environment for VSCode
+		if ! [[ $choice =~ ^[0-9]+$ ]] || [ $choice -gt $((i-1)) ]; then
+			echo "wrong input: Please select from the choices. Try again"
+			return 1
+		fi
+	
+		NETVERSION="net"${SDKS[choice-1]}
+	}
+
+	function direction(){
+	
+	echo ".NET CLI helper to set the development environment for VSCode
 
 Usage:	cshelp [command] [arg1] [arg2]
 
@@ -48,68 +50,66 @@ xunit [name_of_project.Tests] [name_of_project]		Creates an Unit Test inside the
 Created by:
  Markojudas : https://github.com/Markojudas/cshelp"
 
-}
+	}
 
-function add_to_sln(){
+	function add_to_sln(){
 	
-	dotnet sln add $TOSLN/$TOSLN.csproj
-}
+		dotnet sln add $TOSLN/$TOSLN.csproj
+	}
 
 
-function new_console(){
+	function new_console(){
 	
-	pick_sdk
+		pick_sdk
 		
-	if [[ $? -ne 1 ]]; then
-		mkdir $SLN && cd $SLN
-		dotnet new sln
-		dotnet new console --framework=$NETVERSION -o $CA
-		dotnet build $CA/$CA.csproj
-		TOSLN=$CA
+		if [[ $? -ne 1 ]]; then
+			mkdir $SLN && cd $SLN
+			dotnet new sln
+			dotnet new console --framework=$NETVERSION -o $CA
+			dotnet build $CA/$CA.csproj
+			TOSLN=$CA
 
-		add_to_sln
-	else
-		return 1
-	fi
+			add_to_sln
+		else
+			return 1
+		fi
 	
-}
+	}
 
-function add_reference(){
+	function add_reference(){
 	
-	dotnet add $CA/$CA.csproj reference $CL/$CL.csproj
-}
+		dotnet add $CA/$CA.csproj reference $CL/$CL.csproj
+	}
 
-function new_classlib(){
+	function new_classlib(){
 		
-	pick_sdk
+		pick_sdk
 	
-	if [[ $? -ne 1 ]]; then
-		dotnet new classlib --framework=$NETVERSION -o $CL
-		TOSLN=$CL
-		dotnet build $CL/$CL.csproj		
-		add_to_sln
-		add_reference		
-	else
-		return 1
-	fi
-}
+		if [[ $? -ne 1 ]]; then
+			dotnet new classlib --framework=$NETVERSION -o $CL
+			TOSLN=$CL
+			dotnet build $CL/$CL.csproj		
+			add_to_sln
+			add_reference		
+		else
+			return 1
+		fi
+	}
 
-function new_xunit(){
-	pick_sdk
+	function new_xunit(){
+		pick_sdk
 
-	if [[ $? -ne 1 ]]; then
-		dotnet new xunit --framework=$NETVERSION -o $UT
-		TOSLN=$UT
-		CL=$CA
-		CA=$UT
-		add_to_sln
-		add_reference
-	else
-		return 1
-	fi
-}
-
-function cshelp(){
+		if [[ $? -ne 1 ]]; then
+			dotnet new xunit --framework=$NETVERSION -o $UT
+			TOSLN=$UT
+			CL=$CA
+			CA=$UT
+			add_to_sln
+			add_reference
+		else
+			return 1
+		fi
+	}
 	
 	SLN=$2
 	CL=$2
