@@ -12,7 +12,7 @@ function pick_sdk(){
 
 	i=1
 
-	echo "Found the folloing .NET Frameworks: "
+	echo "Found the following .NET Frameworks: "
 	echo " "
 	for sdk in "${SDKS[@]}"
 	do
