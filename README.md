@@ -1,6 +1,6 @@
 #	.NET Framework Helper for vscode in a Linux Environment
 
-I have been using a <a href="https://www.linode.com/">Linode</a> Virtual Machone (Debian 10) for remote work with a ssh connection on <a href="https://code.visualstudio.com/Download">vscode</a>. Development for most languages is quite easy and convinient except for C# (.Net Framework). I found myself
+I have been using a <a href="https://www.linode.com/">Linode</a> Virtual Machine (Debian 10) for remote work with a ssh connection on <a href="https://code.visualstudio.com/Download">vscode</a>. Development for most languages is quite easy and convinient except for C# (.Net Framework). I found myself
 having to run several commands just to set the environment to start coding. That's the birth of this script.
 
 This script simply makes the creation of a <b>console app</b> and a <b>classlib</b> easier so you can start coding faster.
