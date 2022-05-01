@@ -33,7 +33,7 @@ The structure after running the commands:
 
 <img src="./static/structure.png" alt="App Structure"/>
 
-<h5>Start by creating a Console App </h5>
+<h5>Start by creating a Console App</h5>
 The first command to use (ran in your project folder) will create a new directory (named after the solution) and go into this directory. It will then create the solution and a new console app.
 It will then  build the console app and add it to the solution. At this point you can already begin coding! Open the newly created directory (with the solution name) on vscode
 and start coding!
@@ -52,17 +52,20 @@ If you want to create an unit test, then ran the 3rd command. It will be added t
 <b>Commands</b>:
 
 <h2>First Command</h2>
+
 ```
 cshelp console App MyConsoleApp
 ```
 
 <h2>Second Command</h2>
+
 ```
 cshelp classlib MyClass MyConsoleApp
 ```
 
 (update#1)
-<h2>Thrid Command</h2>
+<h2>Third Command</h2>
+
 ```
 cshelp xunit MyConsoleApp.Tests MyconsoleApp
 ```
