@@ -17,15 +17,15 @@ function cshelp(){
 		echo " "
 		for sdk in "${SDKS[@]}"
 		do
-			echo $i: net$sdk
+			echo "  "$i\)  net$sdk
 			let i++
 		done
 		echo " "
 	
 		if [[ $i -eq 2 ]]; then
-			read -p "Select the SDK(1): " choice
+			read -p "Select the SDK [1]: " choice
 		else
-			read -p "Select the SDK(1-$((i-1))): " choice
+			read -p "Select the SDK [1-$((i-1)))]: " choice
 		fi
 
 		if ! [[ $choice =~ ^[0-9]+$ ]] || [ $choice -gt $((i-1)) ]; then
