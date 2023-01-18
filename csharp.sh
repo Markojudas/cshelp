@@ -32,6 +32,29 @@ function cshelp(){
 			echo "wrong input: Please select from the choices. Try again"
 			return 1
 		fi
+
+		CHOSENSDK=($(echo ${SDKS[choice-1]} | grep -o ^[1-9]))
+
+		newSDK="no"
+
+		if [ $CHOSENSDK -ge 6 ]; then
+			newSDK="yes"
+		fi
+
+		useTopLevel="no"
+		topLevel=( $(dotnet --list-sdks | grep -Eo "[0-9]+ ") )
+
+		# echo $topLevel
+
+		# echo $useTopLevel
+
+		for tpL in "${topLevel[@]}"
+		do
+			if [ $(( $((tpl)) >= 400 )) ]; then
+				useTopLevel="yes"
+			fi
+		done
+		# echo $useTopLevel
 	
 		NETVERSION="net"${SDKS[choice-1]}
 	}
@@ -63,9 +86,30 @@ Created by:
 		pick_sdk
 		
 		if [[ $? -ne 1 ]]; then
+
+			if [ $newSDK = "yes" ] && [ $useTopLevel = "yes" ]; then
+				read -p "Do you want to use Top Level Statements (y/n): " topLevelStatements
+			else
+				topLevelStatements="y"
+			fi
+
+			echo "toplevelStatements: "$topLevelStatements
+
+			if [[ $topLevelStatements != "y" ]] && [[ $topLevelStatements != "n" ]] && [[ $topLevelStatements != "Y" ]] && [[ $topLevelStatements != "N" ]]; then
+				echo "Wrong input; Expected input: y/Y/n/N"
+				return 1
+			fi 
+			
 			mkdir $SLN && cd $SLN
 			dotnet new sln
-			dotnet new console --framework=$NETVERSION -o $CA
+
+			if [[ $topLevelStatements == "n" ]] || [[ "$topLevelStatements" == "N" ]]; then
+				dotnet new console --framework=$NETVERSION --use-program-main -o $CA
+			else
+				dotnet new console --framework=$NETVERSION -o $CA
+			fi
+	
+
 			dotnet build $CA/$CA.csproj
 			TOSLN=$CA
 
