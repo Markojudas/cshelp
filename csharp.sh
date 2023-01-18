@@ -93,7 +93,7 @@ Created by:
 				topLevelStatements="y"
 			fi
 
-			echo "toplevelStatements: "$topLevelStatements
+			# echo "toplevelStatements: "$topLevelStatements
 
 			if [[ $topLevelStatements != "y" ]] && [[ $topLevelStatements != "n" ]] && [[ $topLevelStatements != "Y" ]] && [[ $topLevelStatements != "N" ]]; then
 				echo "Wrong input; Expected input: y/Y/n/N"
