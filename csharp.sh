@@ -56,17 +56,18 @@ function cshelp(){
 		# Checks whether the chosen SDK is net6.0.400 (which I understand that release introduced
 		# the ability to select whether or not to use Top-Level Statements.
 		#useTopLevel="yes"
-		topLevel=( $(dotnet --list-sdks | grep -Eo "[0-9]+ ") )
 		
-		if [ $CHOSENSDK -eq 6 ]; then			
-			for tpL in "${topLevel[@]}"
+		if [ $CHOSENSDK -gt 6 ]; then
+			useTopLevel="yes"			
+		elif [ $CHOSENSDK -eq 6 ]; then			
+			topLevel=( $(dotnet --list-sdks | grep -Eo "6.[0-9]+.[0-9]+") )
+			for tpl in "${topLevel[@]}"
 			do
-				if [ $(( $((tpl)) >= 300 )) ]; then
+				Last3=( $(echo $tpl | grep -Eo "[0-9]+$") )
+				if [[ $Last3 -gt "300" ]]; then
 					useTopLevel="yes"
 				fi
 			done
-		elif [ $CHOSENSDK -gt 6 ]; then
-			useTopLevel="yes"
 		else
 			useTopLevel="no"			
 		fi
