@@ -3,11 +3,20 @@
 function cshelp(){
 	
 	function pick_sdk(){
-	
-		if ! [[ -f C://Program\ Files//dotnet//dotnet.exe ]]; then
+		
+		# is dotnet install? This assumes dotnet is installed on /usr/bin/dotnet (linux)
+		# for windows please change the below code to:
+		#
+		# if ! [[ -f C://Program\ Files//dotnet//dotnet.exe ]]; then
+		#       echo ".NET Framework not found"
+		#             return 1
+		# fi
+		if ! [[ -f /usr/bin/dotnet ]]; then
 			echo ".NET Framework not found"
 			return 1
 		fi
+
+		# dotnet found; listing all  the different SDKs on the system (start)
 		IFS=$'\n'
 		SDKS=( $(dotnet --list-sdks | grep -o ^[0-9].[0-9]) )
 
@@ -21,7 +30,9 @@ function cshelp(){
 			let i++
 		done
 		echo " "
-	
+		# (end)
+		
+		# select which sdk to use
 		if [[ $i -eq 2 ]]; then
 			read -p "Select the SDK [1]: " choice
 		else
@@ -35,27 +46,34 @@ function cshelp(){
 
 		CHOSENSDK=($(echo ${SDKS[choice-1]} | grep -o ^[1-9]))
 		
+		# Checks whether the chosen SDK is NET6 or greater for Top-Level Statements		
+		CHOSENSDK=($(echo ${SDKS[choice-1]} | grep -o ^[1-9]))
+
 		newSDK="no"
-
+		
 		if [ $CHOSENSDK -ge 6 ]; then
-			newSDK="yes"	
+			newSDK="yes"
 		fi
-
-		useTopLevel="no"
-		topLevel=( $(dotnet --list-sdks | grep -Eo "[0-9]+ ") )
-
-		# echo $topLevel
-
-		# echo $useTopLevel
-
-		for tpL in "${topLevel[@]}"
-		do
-			if [ $(( $((tpl)) >= 400 )) ]; then
-				useTopLevel="yes"
-			fi
-		done
-		# echo $useTopLevel
-
+		
+		# Checks whether the chosen SDK is net6.0.400 (which I understand that release introduced
+		# the ability to select whether or not to use Top-Level Statements.
+		#useTopLevel="yes"
+		
+		if [ $CHOSENSDK -gt 6 ]; then
+			useTopLevel="yes"			
+		elif [ $CHOSENSDK -eq 6 ]; then			
+			topLevel=( $(dotnet --list-sdks | grep -Eo "6.[0-9]+.[0-9]+") )
+			for tpl in "${topLevel[@]}"
+			do
+				Last3=( $(echo $tpl | grep -Eo "[0-9]+$") )
+				if [[ $Last3 -gt "300" ]]; then
+					useTopLevel="yes"
+				fi
+			done
+		else
+			useTopLevel="no"			
+		fi
+			
 		NETVERSION="net"${SDKS[choice-1]}
 	}
 
@@ -86,14 +104,14 @@ Created by:
 		pick_sdk
 		
 		if [[ $? -ne 1 ]]; then
-			
+
+			# Checking if the chosen SDK accepts the option to opt-out from Top-Level Statements
+			# Gives option to opt-out or in.
 			if [ $newSDK = "yes" ] && [ $useTopLevel = "yes" ]; then
 				read -p "Do you want to use Top Level Statements (y/n): " topLevelStatements
 			else
-				topLevelStatements="n"
+				topLevelStatements="y"
 			fi
-
-			echo "toplevelStatements: "$topLevelStatements
 
 			if [[ $topLevelStatements != "y" ]] && [[ $topLevelStatements != "n" ]] && [[ $topLevelStatements != "Y" ]] && [[ $topLevelStatements != "N" ]]; then
 				echo "Wrong input; Expected input: y/Y/n/N"
@@ -108,8 +126,8 @@ Created by:
 			else
 				dotnet new console --framework=$NETVERSION -o $CA
 			fi
+	
 
-			# dotnet new console --framework=$NETVERSION -o $CA
 			dotnet build $CA/$CA.csproj
 			TOSLN=$CA
 

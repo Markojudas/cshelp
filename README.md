@@ -74,6 +74,10 @@ cshelp xunit MyConsoleApp.Tests MyconsoleApp
 
 That's it!
 
+(Update#2 - 1/18/2023)
+<h2>Top-Level Statements</h2>
+
+If you choose a .NET Framework net6.0.404 or greater you'll be able to choose whether or not you want to use Top-Level Statements when creating a new console app.
 
 #	Collab
 
