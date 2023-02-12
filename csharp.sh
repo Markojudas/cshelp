@@ -44,8 +44,6 @@ function cshelp(){
 			return 1
 		fi
 
-		CHOSENSDK=($(echo ${SDKS[choice-1]} | grep -o ^[1-9]))
-		
 		# Checks whether the chosen SDK is NET6 or greater for Top-Level Statements		
 		CHOSENSDK=($(echo ${SDKS[choice-1]} | grep -o ^[1-9]))
 
