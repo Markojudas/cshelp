@@ -7,14 +7,14 @@ function cshelp(){
 		# is dotnet install? This assumes dotnet is installed on /usr/bin/dotnet (linux)
 		# for windows please change the below code to:
 		#
-		# if ! [[ -f C://Program\ Files//dotnet//dotnet.exe ]]; then
-		#       echo ".NET Framework not found"
-		#             return 1
-		# fi
-		if ! [[ -f /usr/bin/dotnet ]]; then
-			echo ".NET Framework not found"
-			return 1
+		if ! [[ -f C://Program\ Files//dotnet//dotnet.exe ]]; then
+		       echo ".NET Framework not found"
+		             return 1
 		fi
+		#if ! [[ -f /usr/bin/dotnet ]]; then
+		#	echo ".NET Framework not found"
+		#	return 1
+		#fi
 
 		# dotnet found; listing all  the different SDKs on the system (start)
 		IFS=$'\n'
