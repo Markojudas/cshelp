@@ -55,7 +55,7 @@ function cshelp(){
 		
 		# Checks whether the chosen SDK is net6.0.400 (which I understand that release introduced
 		# the ability to select whether or not to use Top-Level Statements.
-		#useTopLevel="yes"
+		useTopLevel="no"
 		
 		if [ $CHOSENSDK -gt 6 ]; then
 			useTopLevel="yes"			
@@ -68,8 +68,6 @@ function cshelp(){
 					useTopLevel="yes"
 				fi
 			done
-		else
-			useTopLevel="no"			
 		fi
 			
 		NETVERSION="net"${SDKS[choice-1]}
